@@ -1,0 +1,50 @@
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="login-header">
+      <h2>Tix<i>ify</i> Admin Portal</h2>
+      <p class="subtitle">Zugang für Veranstalter & Einlass-Teams</p>
+    </div>
+
+    <!-- Wichtig: errorMessage() mit Klammern aufrufen -->
+    <div *ngIf="errorMessage()" class="error-banner">
+      {{ errorMessage() }}
+    </div>
+
+    <form (ngSubmit)="onLogin()" class="login-form">
+      <div class="form-group">
+        <label for="email">E-Mail-Adresse</label>
+        <input 
+          id="email" 
+          type="email" 
+          [(ngModel)]="email" 
+          name="email" 
+          required 
+          placeholder="admin@tixify.de"
+          [disabled]="isLoading()"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Passwort</label>
+        <input 
+          id="password" 
+          type="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          required 
+          placeholder="••••••••"
+          [disabled]="isLoading()"
+        >
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="isLoading()">
+        <span *ngIf="!isLoading()">Anmelden</span>
+        <span *ngIf="isLoading()">Anmeldung läuft...</span>
+      </button>
+
+      <div class="footer-link">
+        <a href="http://localhost:3000">← Zurück zum Kunden-Ticketshop (MPA)</a>
+      </div>
+    </form>
+  </div>
+</div>

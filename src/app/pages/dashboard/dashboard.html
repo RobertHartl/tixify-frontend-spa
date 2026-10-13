@@ -1,0 +1,78 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div>
+      <h1>Kennzahlen & Analysen</h1>
+      <p class="subtitle">Echtzeitdaten aus der PostgreSQL-Datenbank</p>
+    </div>
+    <a routerLink="/events" class="btn-create-event">+ Event verwalten</a>
+  </div>
+
+  <div *ngIf="isLoading()" class="loading-state">
+    Lade Kennzahlen aus der Datenbank...
+  </div>
+
+  <div *ngIf="!isLoading()">
+    <!-- KPI Kacheln -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-label">Aktive Events</span>
+        <span class="kpi-value">{{ totalEvents() }}</span>
+        <span class="kpi-sub">Veranstaltungen im System</span>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-label">Tickets im Kontingent</span>
+        <span class="kpi-value">{{ totalStock() | number }}</span>
+        <span class="kpi-sub">Gesamt verfügbare Tickets</span>
+      </div>
+
+      <div class="kpi-card highlight">
+        <span class="kpi-label">Potenzieller Gesamtwert</span>
+        <span class="kpi-value">{{ totalInventoryValue() | currency:'EUR':'symbol':'1.0-0' }}</span>
+        <span class="kpi-sub">Gesamtwert aller Tickets</span>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-label">Ø Ticketpreis</span>
+        <span class="kpi-value">{{ avgTicketPrice() | currency:'EUR':'symbol':'1.2-2' }}</span>
+        <span class="kpi-sub">Durchschnittlicher Preis</span>
+      </div>
+    </div>
+
+    <!-- Analysen & Überwachung -->
+    <div class="analytics-grid">
+      <!-- Kategorie-Balken -->
+      <div class="panel">
+        <h3>Verteilung nach Kategorien</h3>
+        <div class="category-bars">
+          <div *ngFor="let cat of categoryDistribution()" class="cat-row">
+            <div class="cat-info">
+              <b>{{ cat.name }}</b>
+              <span>{{ cat.count }} Events ({{ cat.percent }}%)</span>
+            </div>
+            <div class="cat-track">
+              <div class="cat-fill" [style.width.%]="cat.percent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kritische Kontingente -->
+      <div class="panel">
+        <h3>Bestandswarnungen (&lt; 50 Tickets)</h3>
+        <div *ngIf="lowStockEvents().length === 0" class="no-warning">
+          Alle Events verfügen über ausreichende Ticketkontingente.
+        </div>
+        <div *ngIf="lowStockEvents().length > 0" class="warning-list">
+          <div *ngFor="let ev of lowStockEvents()" class="warning-item">
+            <div>
+              <b>{{ ev.title }}</b>
+              <small>{{ ev.location || 'Ohne Ortsangabe' }}</small>
+            </div>
+            <span class="badge-stock-danger">{{ ev.event_stock ?? ev.stock }} übrig</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

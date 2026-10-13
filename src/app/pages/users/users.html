@@ -1,0 +1,64 @@
+﻿<div class="users-container">
+  <div class="header-row">
+    <div>
+      <h1>Benutzerverwaltung</h1>
+      <p class="subtitle">Rollenrechte (Customer, Organizer, Admin) steuern und Benutzer verwalten</p>
+    </div>
+  </div>
+
+  <div *ngIf="statusMessage()" class="status-banner">
+    {{ statusMessage() }}
+  </div>
+
+  <div class="toolbar">
+    <input 
+      type="text" 
+      [ngModel]="searchQuery()" 
+      (ngModelChange)="searchQuery.set($event)"
+      placeholder="Benutzer suchen nach Name, E-Mail oder Rolle..." 
+      class="search-input"
+    >
+    <span class="count-badge">{{ filteredUsers().length }} Benutzer</span>
+  </div>
+
+  <div class="table-card">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>E-Mail</th>
+          <th>Aktuelle Rolle</th>
+          <th>Rolle anpassen</th>
+          <th style="text-align: right;">Aktion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="isLoading()">
+          <td colspan="6" style="text-align: center; padding: 24px;">Lade Benutzer...</td>
+        </tr>
+        <tr *ngIf="!isLoading() && filteredUsers().length === 0">
+          <td colspan="6" style="text-align: center; padding: 24px;">Keine Benutzer gefunden.</td>
+        </tr>
+        <tr *ngFor="let u of filteredUsers()">
+          <td><b>#{{ u.id }}</b></td>
+          <td><b>{{ u.name }}</b></td>
+          <td>{{ u.email }}</td>
+          <td>
+            <span class="role-pill" [attr.data-role]="u.role">{{ u.role }}</span>
+          </td>
+          <td>
+            <select [ngModel]="u.role" (ngModelChange)="onRoleChange(u, $event)" class="role-select">
+              <option value="customer">customer</option>
+              <option value="organizer">organizer</option>
+              <option value="admin">admin</option>
+            </select>
+          </td>
+          <td style="text-align: right;">
+            <button class="btn-delete" (click)="deleteUser(u)">Löschen</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

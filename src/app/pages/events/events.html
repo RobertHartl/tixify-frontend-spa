@@ -1,0 +1,201 @@
+<div class="events-container">
+  <div class="header-row">
+    <div>
+      <h1>Eventverwaltung</h1>
+      <p class="subtitle">Veranstaltungen verwalten, filtern und Bestände anpassen</p>
+    </div>
+    <button class="btn-create" (click)="openCreateModal()">+ Neues Event erstellen</button>
+  </div>
+
+  <div *ngIf="statusMessage()" class="status-banner">
+    {{ statusMessage() }}
+  </div>
+
+  <div class="toolbar">
+    <input 
+      type="text" 
+      [ngModel]="searchQuery()" 
+      (ngModelChange)="searchQuery.set($event); currentPage.set(1)"
+      placeholder="Tabelle durchsuchen..." 
+      class="search-input"
+    >
+    <span class="summary-text">{{ filteredEvents().length }} Event(s) gefunden</span>
+  </div>
+
+  <div class="table-card">
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th (click)="changeSort('event_id')" class="sortable" style="width: 60px;">
+            ID {{ sortCol() === 'event_id' ? (sortAsc() ? '▲' : '▼') : '⇅' }}
+          </th>
+          <th (click)="changeSort('title')" class="sortable">
+            Event & Ort {{ sortCol() === 'title' ? (sortAsc() ? '▲' : '▼') : '⇅' }}
+          </th>
+          <th (click)="changeSort('price')" class="sortable">
+            Preis {{ sortCol() === 'price' ? (sortAsc() ? '▲' : '▼') : '⇅' }}
+          </th>
+          <th (click)="changeSort('event_stock')" class="sortable">
+            Bestand {{ sortCol() === 'event_stock' ? (sortAsc() ? '▲' : '▼') : '⇅' }}
+          </th>
+          <th>GraphQL Stock</th>
+          <th style="text-align: right; width: 180px;">Aktionen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="isLoading()">
+          <td colspan="6" class="cell-status">Lade Events...</td>
+        </tr>
+        <tr *ngIf="!isLoading() && pagedEvents().length === 0">
+          <td colspan="6" class="cell-status">Keine Treffer gefunden.</td>
+        </tr>
+        <tr *ngFor="let ev of pagedEvents()">
+          <td><b>#{{ ev.event_id }}</b></td>
+          <td>
+            <div class="event-cell-wrap">
+              <div 
+                class="thumb-preview-mini" 
+                [style.background-image]="'url(' + (ev.logo_url || 'https://via.placeholder.com/80x50?text=Event') + ')'">
+              </div>
+              <div class="title-cell">
+                <b>{{ ev.title }}</b>
+                <div class="location-sub">
+                  <span>{{ ev.location || 'Ohne Ortsangabe' }}</span>
+                  <a 
+                    *ngIf="ev.latitude && ev.longitude" 
+                    [href]="'https://www.google.com/maps?q=' + ev.latitude + ',' + ev.longitude" 
+                    target="_blank" 
+                    class="maps-badge" 
+                    title="In Google Maps öffnen">
+                    📍 Maps
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>{{ ev.price | currency:'EUR':'symbol':'1.2-2' }}</td>
+          <td>
+            <span class="badge" [class.badge-low]="ev.event_stock < 10">
+              {{ ev.event_stock }} Stück
+            </span>
+          </td>
+          <td>
+            <div class="quick-stock-box">
+              <input type="number" [(ngModel)]="ev.newStock" min="0" class="stock-input">
+              <button (click)="saveQuickStock(ev)" class="btn-save-sm" title="Bestand speichern">💾</button>
+            </div>
+          </td>
+          <td style="text-align: right;">
+            <button class="btn-action edit" (click)="openEditModal(ev)">Bearbeiten</button>
+            <button class="btn-action delete" (click)="deleteEvent(ev.event_id)">Löschen</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination" *ngIf="totalPages() > 1">
+      <button [disabled]="currentPage() === 1" (click)="setPage(currentPage() - 1)">&larr;</button>
+      <span class="page-info">Seite {{ currentPage() }} von {{ totalPages() }}</span>
+      <button [disabled]="currentPage() === totalPages()" (click)="setPage(currentPage() + 1)">&rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Erstellen & Bearbeiten -->
+<div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ modalTitle() }}</h2>
+      <button class="btn-close" (click)="closeModal()">&times;</button>
+    </div>
+
+    <form (ngSubmit)="saveModalForm()">
+      <div class="form-grid">
+        <div class="field-full">
+          <label>Titel</label>
+          <input type="text" [(ngModel)]="modalForm().title" name="title" required placeholder="z. B. Rock am Ring 2026">
+        </div>
+
+        <div>
+          <label>Kategorie</label>
+          <select [(ngModel)]="modalForm().category" name="category">
+            <option value="Konzerte">Konzerte</option>
+            <option value="Festivals">Festivals</option>
+            <option value="Sport">Sport</option>
+            <option value="Theater">Theater</option>
+            <option value="Comedy">Comedy</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Ort / Location Name</label>
+          <input type="text" [(ngModel)]="modalForm().location" name="location" placeholder="z. B. Köln oder Lanxess Arena">
+        </div>
+
+        <!-- GOOGLE MAPS KOORDINATEN -->
+        <div>
+          <label>Breitengrad (Latitude)</label>
+          <input 
+            type="number" 
+            step="0.000001" 
+            [(ngModel)]="modalForm().latitude" 
+            name="latitude" 
+            placeholder="z. B. 50.3341"
+          >
+        </div>
+
+        <div>
+          <label>Längengrad (Longitude)</label>
+          <input 
+            type="number" 
+            step="0.000001" 
+            [(ngModel)]="modalForm().longitude" 
+            name="longitude" 
+            placeholder="z. B. 6.9427"
+          >
+        </div>
+
+        <div>
+          <label>Datum & Uhrzeit</label>
+          <input type="datetime-local" [(ngModel)]="modalForm().event_date" name="event_date">
+        </div>
+
+        <div class="dual-field">
+          <div>
+            <label>Preis (€)</label>
+            <input type="number" step="0.01" [(ngModel)]="modalForm().price" name="price" required>
+          </div>
+          <div>
+            <label>Bestand</label>
+            <input type="number" [(ngModel)]="modalForm().event_stock" name="event_stock" required>
+          </div>
+        </div>
+
+        <!-- BILD-URL & LIVE-VORSCHAU -->
+        <div class="field-full">
+          <label>Bild-URL (logo_url)</label>
+          <input 
+            type="url" 
+            [(ngModel)]="modalForm().logo_url" 
+            name="logo_url" 
+            placeholder="https://images.unsplash.com/... oder relative URL"
+          >
+          <div *ngIf="modalForm().logo_url" class="image-preview-wrapper">
+            <small>Vorschau:</small>
+            <img [src]="modalForm().logo_url" alt="Vorschau" class="modal-preview-img">
+          </div>
+        </div>
+
+        <div class="field-full">
+          <label>Beschreibung</label>
+          <textarea rows="3" [(ngModel)]="modalForm().description" name="description" placeholder="Optionale Beschreibung..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" (click)="closeModal()">Abbrechen</button>
+        <button type="submit" class="btn-submit">Speichern</button>
+      </div>
+    </form>
+  </div>
+</div>
