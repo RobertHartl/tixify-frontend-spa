@@ -131,9 +131,21 @@
           <input type="text" [(ngModel)]="modalForm().location" name="location" placeholder="z. B. Köln oder Lanxess Arena">
         </div>
 
-        <div class="field-full">
+        <div class="field-full" style="position: relative;">
           <label>Genaue Adresse</label>
-          <input type="text" [(ngModel)]="modalForm().address" name="address" placeholder="z. B. Willy-Brandt-Platz 3, 50679 Köln">
+          <input 
+            type="text" 
+            [ngModel]="modalForm().address" 
+            (ngModelChange)="updateAddress($event)" 
+            name="address" 
+            placeholder="z. B. Stuttgart Hauptbahnhof"
+            autocomplete="off"
+          >
+          <ul *ngIf="addressSuggestions().length > 0" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ccc; list-style: none; padding: 0; margin: 0; z-index: 1000; max-height: 180px; overflow-y: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 0 0 6px 6px;">
+            <li *ngFor="let item of addressSuggestions()" (click)="selectAddress(item)" style="padding: 10px 12px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 13px;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='white'">
+              📍 {{ item.display_name }}
+            </li>
+          </ul>
         </div>
 
         <div>

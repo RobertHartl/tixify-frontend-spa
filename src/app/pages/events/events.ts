@@ -8,6 +8,7 @@ export interface EventData {
   title: string;
   category?: string;
   location?: string;
+  address?: string;
   event_date?: string;
   price: number;
   event_stock: number;
@@ -41,10 +42,14 @@ export class Events implements OnInit {
 
   isModalOpen = signal(false);
   modalTitle = signal('Neues Event erstellen');
+  addressSuggestions = signal<any[]>([]);
+  private searchTimeout: any = null;
+
   modalForm = signal<EventData>({
     title: '',
     category: 'Konzerte',
     location: '',
+    address: '',
     event_date: '',
     price: 0,
     event_stock: 0,
@@ -143,14 +148,55 @@ export class Events implements OnInit {
     }
   }
 
+  updateAddress(val: string): void {
+    this.modalForm.update(current => ({
+      ...current,
+      address: val
+    }));
+
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+    }
+
+    this.searchTimeout = setTimeout(() => {
+      this.onAddressInput(val);
+    }, 400);
+  }
+
+  onAddressInput(query: string): void {
+    if (!query || query.trim().length < 3) {
+      this.addressSuggestions.set([]);
+      return;
+    }
+
+    fetch(`http://localhost:3000/api/geocode?q=${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(data => {
+        this.addressSuggestions.set(data);
+      })
+      .catch(err => console.error('Fehler bei der Adresssuche:', err));
+  }
+
+  selectAddress(item: any): void {
+    this.modalForm.update(current => ({
+      ...current,
+      address: item.display_name,
+      latitude: parseFloat(item.lat),
+      longitude: parseFloat(item.lon)
+    }));
+    this.addressSuggestions.set([]);
+  }
+
   openCreateModal(): void {
     const now = new Date();
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 
+    this.addressSuggestions.set([]);
     this.modalForm.set({
       title: '',
       category: 'Konzerte',
       location: '',
+      address: '',
       event_date: now.toISOString().slice(0, 16),
       price: 0,
       event_stock: 100,
@@ -173,9 +219,11 @@ export class Events implements OnInit {
       }
     }
 
+    this.addressSuggestions.set([]);
     this.modalForm.set({
       ...event,
       logo_url: event.logo_url || '',
+      address: event.address || '',
       latitude: event.latitude !== undefined && event.latitude !== null ? Number(event.latitude) : null,
       longitude: event.longitude !== undefined && event.longitude !== null ? Number(event.longitude) : null,
       event_date: dateStr
@@ -186,6 +234,7 @@ export class Events implements OnInit {
 
   closeModal(): void {
     this.isModalOpen.set(false);
+    this.addressSuggestions.set([]);
   }
 
   saveModalForm(): void {
