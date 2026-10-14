@@ -17,7 +17,7 @@ export interface UserItem {
 export class ApiService {
   private http = inject(HttpClient);
   private auth = inject(AuthService);
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://tixify-c7a903638236.herokuapp.com';
 
   private getAuthHeaders(): HttpHeaders {
     const token = this.auth.getToken();
