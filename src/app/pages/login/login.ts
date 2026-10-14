@@ -31,7 +31,7 @@ export class Login {
     this.isLoading.set(true);
     this.errorMessage.set(null);
 
-    this.http.post<any>('http://localhost:3000/api/auth/login', {
+    this.http.post<any>('https://tixify-c7a903638236.herokuapp.com/api/auth/login', {
       email: this.email,
       password: this.password
     }).subscribe({
