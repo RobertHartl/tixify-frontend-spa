@@ -169,15 +169,22 @@ export class Events implements OnInit {
       return;
     }
 
-    fetch(`http://localhost:3000/api/geocode?q=${encodeURIComponent(query)}`)
-      .then(res => res.json())
-      .then(data => {
-        this.addressSuggestions.set(data);
-      })
-      .catch(err => console.error('Fehler bei der Adresssuche:', err));
+    this.api.searchAddress(query).subscribe({
+      next: (data) => {
+        if (Array.isArray(data)) {
+          this.addressSuggestions.set(data);
+        } else {
+          this.addressSuggestions.set([]);
+        }
+      },
+      error: (err) => {
+        console.error('Fehler bei der Adresssuche:', err);
+        this.addressSuggestions.set([]);
+      }
+    });
   }
 
-  selectAddress(item: any): void {
+    selectAddress(item: any): void {
     this.modalForm.update(current => ({
       ...current,
       address: item.display_name,

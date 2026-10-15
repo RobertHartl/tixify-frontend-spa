@@ -120,4 +120,7 @@ export class ApiService {
       { headers: this.getAuthHeaders() }
     );
   }
+  searchAddress(query: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/geocode?q=${encodeURIComponent(query)}`);
+  }
 }
