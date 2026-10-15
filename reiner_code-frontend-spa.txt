@@ -1,0 +1,2651 @@
+﻿=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\angular.json ===
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "npm",
+    "analytics": "8d87a8a5-0ad5-46ce-a747-cfadd41bb165"
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "tixify-admin-spa": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": ["src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "tixify-admin-spa:build:production"
+            },
+            "development": {
+              "buildTarget": "tixify-admin-spa:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    }
+  }
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\package.json ===
+{
+  "name": "tixify-admin-spa",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "packageManager": "npm@11.19.0",
+  "dependencies": {
+    "@angular/common": "^22.2.0",
+    "@angular/compiler": "^22.2.0",
+    "@angular/core": "^22.2.0",
+    "@angular/forms": "^22.2.0",
+    "@angular/platform-browser": "^22.2.0",
+    "@angular/router": "^22.2.0",
+    "express": "^5.3.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.2.2",
+    "@angular/cli": "^22.2.2",
+    "@angular/compiler-cli": "^22.2.0",
+    "jsdom": "^30.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~6.0.2",
+    "vitest": "^5.0.0"
+  }
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\tsconfig.app.json ===
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": []
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"]
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\tsconfig.json ===
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\tsconfig.spec.json ===
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["vitest/globals"]
+  },
+  "include": ["src/**/*.d.ts", "src/**/*.spec.ts"]
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\index.html ===
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>TixifyAdminSpa</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\main.ts ===
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { App } from './app/app';
+
+bootstrapApplication(App, appConfig).catch((err) => console.error(err));
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\styles.css ===
+/* You can add global styles to this file, and also import other style files */
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\app.config.ts ===
+import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZonelessChangeDetection(),
+    provideRouter(routes),
+    provideHttpClient()
+  ]
+};
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\app.css ===
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  flex-shrink: 0;
+}
+
+.sidebar-header {
+  margin-bottom: 28px;
+}
+
+.sidebar-header h2 {
+  margin: 0 0 6px 0;
+  font-size: 20px;
+  color: #3b3fa8;
+}
+
+.sidebar-header h2 i {
+  font-style: italic;
+}
+
+.user-role {
+  display: inline-block;
+  background-color: #e0e7ff;
+  color: #3730a3;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: #475569;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.nav-links a:hover {
+  background-color: #f1f5f9;
+  color: #0f172a;
+}
+
+.nav-links a.active {
+  background-color: #3b3fa8;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.sidebar-footer {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.user-info b {
+  display: block;
+  font-size: 14px;
+  color: #0f172a;
+  word-break: break-all;
+}
+
+.user-info small {
+  display: block;
+  font-size: 12px;
+  color: #64748b;
+  word-break: break-all;
+}
+
+.btn-logout {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #fee2e2;
+  background-color: #fef2f2;
+  color: #991b1b;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-logout:hover {
+  background-color: #fee2e2;
+}
+
+.btn-shop-link {
+  text-align: center;
+  font-size: 12px;
+  color: #64748b;
+  text-decoration: none;
+}
+
+.btn-shop-link:hover {
+  text-decoration: underline;
+}
+
+.content-area {
+  flex: 1;
+  padding: 32px 40px;
+  overflow-y: auto;
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\app.html ===
+<div class="admin-layout" *ngIf="auth.isLoggedIn()">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>Tix<i>ify</i> Admin</h2>
+      <span class="user-role">{{ auth.currentUser()?.role || 'ADMIN' }}</span>
+    </div>
+
+    <nav class="nav-links">
+      <a routerLink="/dashboard" routerLinkActive="active">Kennzahlen</a>
+      <a routerLink="/events" routerLinkActive="active">Events & Kontingente</a>
+      <a routerLink="/users" routerLinkActive="active">Benutzer</a>
+      <a routerLink="/checkin" routerLinkActive="active">Einlasskontrolle</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <b>{{ auth.currentUser()?.name || 'Administrator' }}</b>
+        <small>{{ auth.currentUser()?.email || 'Keine E-Mail hinterlegt' }}</small>
+      </div>
+      <button class="btn-logout" (click)="onLogout()">Abmelden</button>
+      <a href="http://localhost:3000" class="btn-shop-link">â† Zum Kunden-Shop</a>
+    </div>
+  </aside>
+
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<div class="auth-layout" *ngIf="!auth.isLoggedIn()">
+  <router-outlet></router-outlet>
+</div>
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\app.routes.ts ===
+import { Routes } from '@angular/router';
+import { authGuard } from './guards/auth-guard'; // bzw. './guards/auth' je nach Dateiname
+
+export const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { 
+    path: 'login', 
+    loadComponent: () => import('./pages/login/login').then(m => m.Login) 
+  },
+  { 
+    path: 'dashboard', 
+    canActivate: [authGuard], 
+    loadComponent: () => import('./pages/dashboard/dashboard').then(m => m.Dashboard) 
+  },
+  { 
+    path: 'events', 
+    canActivate: [authGuard], 
+    loadComponent: () => import('./pages/events/events').then(m => m.Events) 
+  },
+  { 
+    path: 'users', 
+    canActivate: [authGuard], 
+    loadComponent: () => import('./pages/users/users').then(m => m.Users) 
+  },
+  { 
+    path: 'checkin', 
+    canActivate: [authGuard], 
+    loadComponent: () => import('./pages/checkin/checkin').then(m => m.Checkin) 
+  },
+  { path: '**', redirectTo: 'dashboard' }
+];
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\app.spec.ts ===
+import { TestBed } from '@angular/core/testing';
+import { App } from './app';
+
+describe('App', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [App],
+    }).compileComponents();
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(App);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it('should render title', async () => {
+    const fixture = TestBed.createComponent(App);
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, tixify-admin-spa');
+  });
+});
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\app.ts ===
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from './services/auth';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
+  templateUrl: './app.html',
+  styleUrl: './app.css'
+})
+export class App {
+  auth = inject(AuthService);
+
+  onLogout(): void {
+    this.auth.logout();
+  }
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\guards\auth-guard.spec.ts ===
+import { TestBed } from '@angular/core/testing';
+import { CanActivateFn } from '@angular/router';
+import { authGuard } from './auth-guard';
+
+describe('authGuard', () => {
+  const executeGuard: CanActivateFn = (...guardParameters) =>
+    TestBed.runInInjectionContext(() => authGuard(...guardParameters));
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+  });
+
+  it('should be created', () => {
+    expect(executeGuard).toBeTruthy();
+  });
+});
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\guards\auth-guard.ts ===
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth';
+
+export const authGuard: CanActivateFn = () => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+
+  if (auth.isLoggedIn()) {
+    const role = (auth.currentUser()?.role || '').toLowerCase();
+    if (role === 'admin' || role === 'organizer') {
+      return true;
+    }
+  }
+
+  router.navigate(['/login']);
+  return false;
+};
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\checkin\checkin.css ===
+.page-container {
+  max-width: 600px;
+}
+
+.page-header h1 {
+  margin: 0 0 6px 0;
+  color: #0f172a;
+  font-size: 26px;
+}
+
+.page-header p {
+  margin: 0 0 24px 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.checkin-box {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.input-row {
+  display: flex;
+  gap: 12px;
+}
+
+.input-row input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.btn-scan {
+  background: #3b3fa8;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-scan:disabled {
+  background: #94a3b8;
+}
+
+.status-box {
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.status-valid {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.status-used {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.status-invalid {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\checkin\checkin.html ===
+<div class="page-container">
+  <header class="page-header">
+    <h1>Einlasskontrolle (Ticket Check-in)</h1>
+    <p>Atomare Entwertung Ã¼ber das Backend zur Vermeidung von Doppel-Scans</p>
+  </header>
+
+  <div class="checkin-box">
+    <form (ngSubmit)="onCheckIn()">
+      <label for="code">Ticket-Code</label>
+      <div class="input-row">
+        <input 
+          id="code" 
+          type="text" 
+          [(ngModel)]="ticketCode" 
+          name="ticketCode" 
+          placeholder="z. B. TIX-9C9FEB3D" 
+          autocomplete="off"
+          required
+        >
+        <button type="submit" [disabled]="isLoading" class="btn-scan">
+          {{ isLoading ? 'PrÃ¼fe...' : 'Entwerten' }}
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="resultStatus === 'valid'" class="status-box status-valid">
+      âœ“ {{ statusMessage }}
+    </div>
+
+    <div *ngIf="resultStatus === 'used'" class="status-box status-used">
+      âš  {{ statusMessage }}
+    </div>
+
+    <div *ngIf="resultStatus === 'invalid'" class="status-box status-invalid">
+      âœ• {{ statusMessage }}
+    </div>
+  </div>
+</div>
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\checkin\checkin.spec.ts ===
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Checkin } from './checkin';
+
+describe('Checkin', () => {
+  let component: Checkin;
+  let fixture: ComponentFixture<Checkin>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [Checkin],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(Checkin);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\checkin\checkin.ts ===
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ApiService } from '../../services/api';
+
+@Component({
+  selector: 'app-checkin',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './checkin.html',
+  styleUrl: './checkin.css'
+})
+export class Checkin {
+  private api = inject(ApiService);
+
+  ticketCode = '';
+  resultStatus: 'idle' | 'valid' | 'used' | 'invalid' = 'idle';
+  statusMessage = '';
+  isLoading = false;
+
+  onCheckIn(): void {
+    const code = this.ticketCode.trim();
+    if (!code) return;
+
+    this.isLoading = true;
+    this.resultStatus = 'idle';
+
+    this.api.checkInTicket(code).subscribe({
+      next: (res: any) => {
+        this.isLoading = false;
+        this.resultStatus = 'valid';
+        this.statusMessage = res.message || 'Ticket erfolgreich entwertet!';
+        this.ticketCode = '';
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading = false;
+        if (err.status === 409) {
+          this.resultStatus = 'used';
+          this.statusMessage = 'Ticket wurde bereits entwertet!';
+        } else {
+          this.resultStatus = 'invalid';
+          this.statusMessage = err.error?.error || 'UngÃ¼ltiger Ticket-Code.';
+        }
+      }
+    });
+  }
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\dashboard\dashboard.css ===
+.dashboard-container {
+  max-width: 1100px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.subtitle {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.btn-create-event {
+  background-color: #3b3fa8;
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.loading-state {
+  color: #64748b;
+  font-style: italic;
+  padding: 24px 0;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.kpi-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-card.highlight {
+  border-color: #c7d2fe;
+  background-color: #f5f7ff;
+}
+
+.kpi-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 6px 0 2px 0;
+}
+
+.kpi-card.highlight .kpi-value {
+  color: #3b3fa8;
+}
+
+.kpi-sub {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.panel {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.panel h3 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.category-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cat-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.cat-info b {
+  color: #334155;
+}
+
+.cat-info span {
+  color: #64748b;
+}
+
+.cat-track {
+  background-color: #f1f5f9;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cat-fill {
+  background-color: #3b3fa8;
+  height: 100%;
+}
+
+.no-warning {
+  color: #166534;
+  background-color: #dcfce7;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.warning-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.warning-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background-color: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 6px;
+}
+
+.warning-item small {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.badge-stock-danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\dashboard\dashboard.html ===
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div>
+      <h1>Kennzahlen & Analysen</h1>
+      <p class="subtitle">Echtzeitdaten aus der PostgreSQL-Datenbank</p>
+    </div>
+    <a routerLink="/events" class="btn-create-event">+ Event verwalten</a>
+  </div>
+
+  <div *ngIf="isLoading()" class="loading-state">
+    Lade Kennzahlen aus der Datenbank...
+  </div>
+
+  <div *ngIf="!isLoading()">
+    <!-- KPI Kacheln -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-label">Aktive Events</span>
+        <span class="kpi-value">{{ totalEvents() }}</span>
+        <span class="kpi-sub">Veranstaltungen im System</span>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-label">Tickets im Kontingent</span>
+        <span class="kpi-value">{{ totalStock() | number }}</span>
+        <span class="kpi-sub">Gesamt verfÃ¼gbare Tickets</span>
+      </div>
+
+      <div class="kpi-card highlight">
+        <span class="kpi-label">Potenzieller Gesamtwert</span>
+        <span class="kpi-value">{{ totalInventoryValue() | currency:'EUR':'symbol':'1.0-0' }}</span>
+        <span class="kpi-sub">Gesamtwert aller Tickets</span>
+      </div>
+
+      <div class="kpi-card">
+        <span class="kpi-label">Ã˜ Ticketpreis</span>
+        <span class="kpi-value">{{ avgTicketPrice() | currency:'EUR':'symbol':'1.2-2' }}</span>
+        <span class="kpi-sub">Durchschnittlicher Preis</span>
+      </div>
+    </div>
+
+    <!-- Analysen & Ãœberwachung -->
+    <div class="analytics-grid">
+      <!-- Kategorie-Balken -->
+      <div class="panel">
+        <h3>Verteilung nach Kategorien</h3>
+        <div class="category-bars">
+          <div *ngFor="let cat of categoryDistribution()" class="cat-row">
+            <div class="cat-info">
+              <b>{{ cat.name }}</b>
+              <span>{{ cat.count }} Events ({{ cat.percent }}%)</span>
+            </div>
+            <div class="cat-track">
+              <div class="cat-fill" [style.width.%]="cat.percent"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kritische Kontingente -->
+      <div class="panel">
+        <h3>Bestandswarnungen (&lt; 50 Tickets)</h3>
+        <div *ngIf="lowStockEvents().length === 0" class="no-warning">
+          Alle Events verfÃ¼gen Ã¼ber ausreichende Ticketkontingente.
+        </div>
+        <div *ngIf="lowStockEvents().length > 0" class="warning-list">
+          <div *ngFor="let ev of lowStockEvents()" class="warning-item">
+            <div>
+              <b>{{ ev.title }}</b>
+              <small>{{ ev.location || 'Ohne Ortsangabe' }}</small>
+            </div>
+            <span class="badge-stock-danger">{{ ev.event_stock ?? ev.stock }} Ã¼brig</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\dashboard\dashboard.spec.ts ===
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Dashboard } from './dashboard';
+
+describe('Dashboard', () => {
+  let component: Dashboard;
+  let fixture: ComponentFixture<Dashboard>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [Dashboard],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(Dashboard);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\dashboard\dashboard.ts ===
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { ApiService } from '../../services/api';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: './dashboard.html',
+  styleUrl: './dashboard.css'
+})
+export class Dashboard implements OnInit {
+  private api = inject(ApiService);
+
+  isLoading = signal(true);
+  events = signal<any[]>([]);
+
+  totalEvents = computed(() => this.events().length);
+
+  totalStock = computed(() => 
+    this.events().reduce((sum, e) => sum + (Number(e.event_stock ?? e.stock) || 0), 0)
+  );
+
+  totalInventoryValue = computed(() => 
+    this.events().reduce((sum, e) => {
+      const stock = Number(e.event_stock ?? e.stock) || 0;
+      const price = parseFloat(e.price) || 0;
+      return sum + (stock * price);
+    }, 0)
+  );
+
+  avgTicketPrice = computed(() => {
+    if (this.totalEvents() === 0) return 0;
+    const sumPrice = this.events().reduce((sum, e) => sum + (parseFloat(e.price) || 0), 0);
+    return sumPrice / this.totalEvents();
+  });
+
+  lowStockEvents = computed(() => 
+    this.events().filter(e => (Number(e.event_stock ?? e.stock) || 0) < 50)
+  );
+
+  categoryDistribution = computed(() => {
+    const counts: Record<string, number> = {};
+    for (const e of this.events()) {
+      const cat = e.category || 'Sonstige';
+      counts[cat] = (counts[cat] || 0) + 1;
+    }
+    return Object.entries(counts).map(([name, count]) => ({
+      name,
+      count,
+      percent: Math.round((count / (this.totalEvents() || 1)) * 100)
+    }));
+  });
+
+  ngOnInit(): void {
+    this.api.getEvents().subscribe({
+      next: (res: any) => {
+        const list = Array.isArray(res) ? res : (res.events || res.data || []);
+        this.events.set(list);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error('Fehler beim Laden des Dashboards:', err);
+        this.isLoading.set(false);
+      }
+    });
+  }
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\events\events.css ===
+.events-container {
+  max-width: 1100px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #0f172a;
+}
+
+.subtitle {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.btn-create {
+  background: #3b3fa8;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.search-input {
+  width: 320px;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.summary-text {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.table-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.events-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.events-table th, .events-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.events-table th {
+  background: #f8fafc;
+  color: #475569;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.event-cell-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.thumb-preview-mini {
+  width: 52px;
+  height: 38px;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 1px solid #e2e8f0;
+  flex-shrink: 0;
+  background-color: #f1f5f9;
+}
+
+.title-cell b {
+  display: block;
+  color: #0f172a;
+}
+
+.title-cell small {
+  color: #64748b;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.badge-low {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.quick-stock-box {
+  display: flex;
+  gap: 6px;
+}
+
+.stock-input {
+  width: 65px;
+  padding: 4px 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+}
+
+.btn-save-sm {
+  background: #e2e8f0;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.btn-action {
+  padding: 6px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: white;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-left: 6px;
+}
+
+.btn-action.edit:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.btn-action.delete {
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+.btn-action.delete:hover {
+  background: #fee2e2;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  background: white;
+  width: 540px;
+  max-width: 92vw;
+  border-radius: 10px;
+  padding: 24px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  color: #64748b;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field-full {
+  grid-column: span 2;
+}
+
+.dual-field {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #475569;
+}
+
+input, select, textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.image-preview-wrapper {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-preview-img {
+  width: 100px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.btn-cancel {
+  background: #f1f5f9;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-submit {
+  background: #3b3fa8;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.status-banner {
+  background: #dbeafe;
+  color: #1e40af;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.location-sub {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.maps-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #bfdbfe;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.maps-badge:hover {
+  background-color: #dbeafe;
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\events\events.html ===
+<div class="events-container">
+  <div class="header-row">
+    <div>
+      <h1>Eventverwaltung</h1>
+      <p class="subtitle">Veranstaltungen verwalten, filtern und BestÃ¤nde anpassen</p>
+    </div>
+    <button class="btn-create" (click)="openCreateModal()">+ Neues Event erstellen</button>
+  </div>
+
+  <div *ngIf="statusMessage()" class="status-banner">
+    {{ statusMessage() }}
+  </div>
+
+  <div class="toolbar">
+    <input 
+      type="text" 
+      [ngModel]="searchQuery()" 
+      (ngModelChange)="searchQuery.set($event); currentPage.set(1)"
+      placeholder="Tabelle durchsuchen..." 
+      class="search-input"
+    >
+    <span class="summary-text">{{ filteredEvents().length }} Event(s) gefunden</span>
+  </div>
+
+  <div class="table-card">
+    <table class="events-table">
+      <thead>
+        <tr>
+          <th (click)="changeSort('event_id')" class="sortable" style="width: 60px;">
+            ID {{ sortCol() === 'event_id' ? (sortAsc() ? 'â–²' : 'â–¼') : 'â‡…' }}
+          </th>
+          <th (click)="changeSort('title')" class="sortable">
+            Event & Ort {{ sortCol() === 'title' ? (sortAsc() ? 'â–²' : 'â–¼') : 'â‡…' }}
+          </th>
+          <th (click)="changeSort('price')" class="sortable">
+            Preis {{ sortCol() === 'price' ? (sortAsc() ? 'â–²' : 'â–¼') : 'â‡…' }}
+          </th>
+          <th (click)="changeSort('event_stock')" class="sortable">
+            Bestand {{ sortCol() === 'event_stock' ? (sortAsc() ? 'â–²' : 'â–¼') : 'â‡…' }}
+          </th>
+          <th>GraphQL Stock</th>
+          <th style="text-align: right; width: 180px;">Aktionen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="isLoading()">
+          <td colspan="6" class="cell-status">Lade Events...</td>
+        </tr>
+        <tr *ngIf="!isLoading() && pagedEvents().length === 0">
+          <td colspan="6" class="cell-status">Keine Treffer gefunden.</td>
+        </tr>
+        <tr *ngFor="let ev of pagedEvents()">
+          <td><b>#{{ ev.event_id }}</b></td>
+          <td>
+            <div class="event-cell-wrap">
+              <div 
+                class="thumb-preview-mini" 
+                [style.background-image]="'url(' + (ev.logo_url || 'https://via.placeholder.com/80x50?text=Event') + ')'">
+              </div>
+              <div class="title-cell">
+                <b>{{ ev.title }}</b>
+                <div class="location-sub">
+                  <span>{{ ev.location || 'Ohne Ortsangabe' }}</span>
+                  <a 
+                    *ngIf="ev.latitude && ev.longitude" 
+                    [href]="'https://www.openstreetmap.org/?mlat=' + ev.latitude + '&mlon=' + ev.longitude + '#map=16/' + ev.latitude + '/' + ev.longitude" 
+                    target="_blank" 
+                    class="maps-badge" 
+                    title="In OpenStreetMap Ã¶ffnen">
+                    ðŸ—ºï¸ Karte
+                  </a>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>{{ ev.price | currency:'EUR':'symbol':'1.2-2' }}</td>
+          <td>
+            <span class="badge" [class.badge-low]="ev.event_stock < 10">
+              {{ ev.event_stock }} StÃ¼ck
+            </span>
+          </td>
+          <td>
+            <div class="quick-stock-box">
+              <input type="number" [(ngModel)]="ev.newStock" min="0" class="stock-input">
+              <button (click)="saveQuickStock(ev)" class="btn-save-sm" title="Bestand speichern">ðŸ’¾</button>
+            </div>
+          </td>
+          <td style="text-align: right;">
+            <button class="btn-action edit" (click)="openEditModal(ev)">Bearbeiten</button>
+            <button class="btn-action delete" (click)="deleteEvent(ev.event_id)">LÃ¶schen</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pagination" *ngIf="totalPages() > 1">
+      <button [disabled]="currentPage() === 1" (click)="setPage(currentPage() - 1)">&larr;</button>
+      <span class="page-info">Seite {{ currentPage() }} von {{ totalPages() }}</span>
+      <button [disabled]="currentPage() === totalPages()" (click)="setPage(currentPage() + 1)">&rarr;</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="isModalOpen()" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>{{ modalTitle() }}</h2>
+      <button class="btn-close" (click)="closeModal()">&times;</button>
+    </div>
+
+    <form (ngSubmit)="saveModalForm()">
+      <div class="form-grid">
+        <div class="field-full">
+          <label>Titel</label>
+          <input type="text" [(ngModel)]="modalForm().title" name="title" required placeholder="z. B. Rock am Ring 2026">
+        </div>
+
+        <div>
+          <label>Kategorie</label>
+          <select [(ngModel)]="modalForm().category" name="category">
+            <option value="Konzerte">Konzerte</option>
+            <option value="Festivals">Festivals</option>
+            <option value="Sport">Sport</option>
+            <option value="Theater">Theater</option>
+            <option value="Comedy">Comedy</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Ort / Location Name</label>
+          <input type="text" [(ngModel)]="modalForm().location" name="location" placeholder="z. B. KÃ¶ln oder Lanxess Arena">
+        </div>
+
+        <div class="field-full" style="position: relative;">
+          <label>Genaue Adresse</label>
+          <input 
+            type="text" 
+            [ngModel]="modalForm().address" 
+            (ngModelChange)="updateAddress($event)" 
+            name="address" 
+            placeholder="z. B. Stuttgart Hauptbahnhof"
+            autocomplete="off"
+          >
+          <ul *ngIf="addressSuggestions().length > 0" style="position: absolute; top: 100%; left: 0; right: 0; background: white; border: 1px solid #ccc; list-style: none; padding: 0; margin: 0; z-index: 1000; max-height: 180px; overflow-y: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 0 0 6px 6px;">
+            <li *ngFor="let item of addressSuggestions()" (click)="selectAddress(item)" style="padding: 10px 12px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 13px;" onmouseover="this.style.background='#f4f4f4'" onmouseout="this.style.background='white'">
+              ðŸ“ {{ item.display_name }}
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <label>Breitengrad (Latitude)</label>
+          <input 
+            type="number" 
+            step="0.000001" 
+            [(ngModel)]="modalForm().latitude" 
+            name="latitude" 
+            placeholder="z. B. 50.3341"
+          >
+        </div>
+
+        <div>
+          <label>LÃ¤ngengrad (Longitude)</label>
+          <input 
+            type="number" 
+            step="0.000001" 
+            [(ngModel)]="modalForm().longitude" 
+            name="longitude" 
+            placeholder="z. B. 6.9427"
+          >
+        </div>
+
+        <div>
+          <label>Datum & Uhrzeit</label>
+          <input type="datetime-local" [(ngModel)]="modalForm().event_date" name="event_date">
+        </div>
+
+        <div class="dual-field">
+          <div>
+            <label>Preis (â‚¬)</label>
+            <input type="number" step="0.01" [(ngModel)]="modalForm().price" name="price" required>
+          </div>
+          <div>
+            <label>Bestand</label>
+            <input type="number" [(ngModel)]="modalForm().event_stock" name="event_stock" required>
+          </div>
+        </div>
+
+        <div class="field-full">
+          <label>Bild-URL (logo_url)</label>
+          <input 
+            type="url" 
+            [(ngModel)]="modalForm().logo_url" 
+            name="logo_url" 
+            placeholder="https://images.unsplash.com/... oder relative URL"
+          >
+          <div *ngIf="modalForm().logo_url" class="image-preview-wrapper">
+            <small>Vorschau:</small>
+            <img [src]="modalForm().logo_url" alt="Vorschau" class="modal-preview-img">
+          </div>
+        </div>
+
+        <div class="field-full">
+          <label>Beschreibung</label>
+          <textarea rows="3" [(ngModel)]="modalForm().description" name="description" placeholder="Optionale Beschreibung..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" (click)="closeModal()">Abbrechen</button>
+        <button type="submit" class="btn-submit">Speichern</button>
+      </div>
+    </form>
+  </div>
+</div>
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\events\events.spec.ts ===
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Events } from './events';
+
+describe('Events', () => {
+  let component: Events;
+  let fixture: ComponentFixture<Events>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [Events],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(Events);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\events\events.ts ===
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../services/api';
+
+export interface EventData {
+  event_id?: number;
+  title: string;
+  category?: string;
+  location?: string;
+  address?: string;
+  event_date?: string;
+  price: number;
+  event_stock: number;
+  logo_url?: string;
+  description?: string;
+  latitude?: number | null;
+  longitude?: number | null;
+  newStock?: number;
+}
+
+@Component({
+  selector: 'app-events',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './events.html',
+  styleUrl: './events.css'
+})
+export class Events implements OnInit {
+  private api = inject(ApiService);
+
+  rawEvents = signal<EventData[]>([]);
+  isLoading = signal(true);
+  statusMessage = signal<string | null>(null);
+
+  searchQuery = signal('');
+  sortCol = signal<string>('event_id');
+  sortAsc = signal(true);
+
+  currentPage = signal(1);
+  readonly rowsPerPage = 8;
+
+  isModalOpen = signal(false);
+  modalTitle = signal('Neues Event erstellen');
+  addressSuggestions = signal<any[]>([]);
+  private searchTimeout: any = null;
+
+  modalForm = signal<EventData>({
+    title: '',
+    category: 'Konzerte',
+    location: '',
+    address: '',
+    event_date: '',
+    price: 0,
+    event_stock: 0,
+    logo_url: '',
+    description: '',
+    latitude: null,
+    longitude: null
+  });
+
+  filteredEvents = computed(() => {
+    const query = this.searchQuery().trim().toLowerCase();
+    const col = this.sortCol();
+    const asc = this.sortAsc();
+
+    let list = this.rawEvents().filter(e => {
+      if (!query) return true;
+      const title = (e.title || '').toLowerCase();
+      const loc = (e.location || '').toLowerCase();
+      const cat = (e.category || '').toLowerCase();
+      const id = String(e.event_id || '');
+      return title.includes(query) || loc.includes(query) || cat.includes(query) || id.includes(query);
+    });
+
+    return list.sort((a: any, b: any) => {
+      let valA = a[col];
+      let valB = b[col];
+
+      if (col === 'event_id' || col === 'price' || col === 'event_stock') {
+        valA = parseFloat(valA) || 0;
+        valB = parseFloat(valB) || 0;
+      } else if (col === 'event_date') {
+        valA = new Date(valA).getTime() || 0;
+        valB = new Date(valB).getTime() || 0;
+      } else {
+        valA = (valA || '').toString().toLowerCase();
+        valB = (valB || '').toString().toLowerCase();
+      }
+
+      if (valA < valB) return asc ? -1 : 1;
+      if (valA > valB) return asc ? 1 : -1;
+      return 0;
+    });
+  });
+
+  totalPages = computed(() => Math.ceil(this.filteredEvents().length / this.rowsPerPage) || 1);
+
+  pagedEvents = computed(() => {
+    const start = (this.currentPage() - 1) * this.rowsPerPage;
+    return this.filteredEvents().slice(start, start + this.rowsPerPage);
+  });
+
+  ngOnInit(): void {
+    this.loadEvents();
+  }
+
+  loadEvents(): void {
+    this.isLoading.set(true);
+    this.api.getEventsViaGraphQL().subscribe({
+      next: (res: any) => {
+        const events = res?.data?.events || res?.events || [];
+        const mapped = events.map((e: any) => ({
+          ...e,
+          newStock: e.event_stock
+        }));
+        this.rawEvents.set(mapped);
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.api.getEvents().subscribe({
+          next: (events: any) => {
+            const list = Array.isArray(events) ? events : [];
+            this.rawEvents.set(list.map((e: any) => ({ ...e, newStock: e.event_stock })));
+            this.isLoading.set(false);
+          },
+          error: (err) => {
+            this.isLoading.set(false);
+            this.notify('Fehler beim Laden: ' + err.message);
+          }
+        });
+      }
+    });
+  }
+
+  changeSort(col: string): void {
+    if (this.sortCol() === col) {
+      this.sortAsc.set(!this.sortAsc());
+    } else {
+      this.sortCol.set(col);
+      this.sortAsc.set(true);
+    }
+  }
+
+  setPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages()) {
+      this.currentPage.set(page);
+    }
+  }
+
+  updateAddress(val: string): void {
+    this.modalForm.update(current => ({
+      ...current,
+      address: val
+    }));
+
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+    }
+
+    this.searchTimeout = setTimeout(() => {
+      this.onAddressInput(val);
+    }, 400);
+  }
+
+  onAddressInput(query: string): void {
+    if (!query || query.trim().length < 3) {
+      this.addressSuggestions.set([]);
+      return;
+    }
+
+    fetch(`http://localhost:3000/api/geocode?q=${encodeURIComponent(query)}`)
+      .then(res => res.json())
+      .then(data => {
+        this.addressSuggestions.set(data);
+      })
+      .catch(err => console.error('Fehler bei der Adresssuche:', err));
+  }
+
+  selectAddress(item: any): void {
+    this.modalForm.update(current => ({
+      ...current,
+      address: item.display_name,
+      latitude: parseFloat(item.lat),
+      longitude: parseFloat(item.lon)
+    }));
+    this.addressSuggestions.set([]);
+  }
+
+  openCreateModal(): void {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+    this.addressSuggestions.set([]);
+    this.modalForm.set({
+      title: '',
+      category: 'Konzerte',
+      location: '',
+      address: '',
+      event_date: now.toISOString().slice(0, 16),
+      price: 0,
+      event_stock: 100,
+      logo_url: '',
+      description: '',
+      latitude: null,
+      longitude: null
+    });
+    this.modalTitle.set('Neues Event erstellen');
+    this.isModalOpen.set(true);
+  }
+
+  openEditModal(event: EventData): void {
+    let dateStr = '';
+    if (event.event_date) {
+      const d = new Date(event.event_date);
+      if (!isNaN(d.getTime())) {
+        d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+        dateStr = d.toISOString().slice(0, 16);
+      }
+    }
+
+    this.addressSuggestions.set([]);
+    this.modalForm.set({
+      ...event,
+      logo_url: event.logo_url || '',
+      address: event.address || '',
+      latitude: event.latitude !== undefined && event.latitude !== null ? Number(event.latitude) : null,
+      longitude: event.longitude !== undefined && event.longitude !== null ? Number(event.longitude) : null,
+      event_date: dateStr
+    });
+    this.modalTitle.set(`Event #${event.event_id} bearbeiten`);
+    this.isModalOpen.set(true);
+  }
+
+  closeModal(): void {
+    this.isModalOpen.set(false);
+    this.addressSuggestions.set([]);
+  }
+
+  saveModalForm(): void {
+    const data = this.modalForm();
+    if (!data.title) return;
+
+    const payload = {
+      ...data,
+      latitude: data.latitude !== null && data.latitude !== undefined ? Number(data.latitude) : null,
+      longitude: data.longitude !== null && data.longitude !== undefined ? Number(data.longitude) : null
+    };
+
+    if (payload.event_id) {
+      this.api.updateEvent(payload.event_id, payload).subscribe({
+        next: () => {
+          this.notify(`Event #${payload.event_id} erfolgreich aktualisiert!`);
+          this.closeModal();
+          this.loadEvents();
+        },
+        error: (err) => this.notify('Fehler beim Speichern: ' + (err.error?.error || err.message))
+      });
+    } else {
+      this.api.createEvent(payload).subscribe({
+        next: () => {
+          this.notify('Event erfolgreich angelegt!');
+          this.closeModal();
+          this.loadEvents();
+        },
+        error: (err) => this.notify('Fehler beim Erstellen: ' + (err.error?.error || err.message))
+      });
+    }
+  }
+
+  deleteEvent(id: number | undefined): void {
+    if (!id) return;
+    if (confirm(`MÃ¶chtest du das Event #${id} wirklich unwiderruflich lÃ¶schen?`)) {
+      this.api.deleteEvent(id).subscribe({
+        next: () => {
+          this.notify(`Event #${id} gelÃ¶scht.`);
+          this.loadEvents();
+        },
+        error: (err) => this.notify('Fehler beim LÃ¶schen: ' + (err.error?.error || err.message))
+      });
+    }
+  }
+
+  saveQuickStock(event: EventData): void {
+    if (event.newStock === undefined || !event.event_id) return;
+
+    this.api.updateEventStock(event.event_id.toString(), event.newStock).subscribe({
+      next: () => {
+        event.event_stock = event.newStock!;
+        this.notify(`Bestand fÃ¼r "${event.title}" via GraphQL aktualisiert.`);
+      },
+      error: (err) => this.notify('Mutation fehlgeschlagen: ' + err.message)
+    });
+  }
+
+  private notify(msg: string): void {
+    this.statusMessage.set(msg);
+    setTimeout(() => this.statusMessage.set(null), 3500);
+  }
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\login\login.css ===
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.login-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 36px 32px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.login-header h2 {
+  margin: 0 0 6px 0;
+  font-size: 24px;
+  color: #0f172a;
+}
+
+.login-header h2 i {
+  color: #3b3fa8;
+}
+
+.subtitle {
+  margin: 0 0 24px 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.error-banner {
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #b91c1c;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #3b3fa8;
+}
+
+.btn-submit {
+  margin-top: 8px;
+  background-color: #3b3fa8;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #2e328b;
+}
+
+.btn-submit:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.footer-link {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.footer-link a {
+  font-size: 13px;
+  color: #64748b;
+  text-decoration: none;
+}
+
+.footer-link a:hover {
+  text-decoration: underline;
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\login\login.html ===
+<div class="login-wrapper">
+  <div class="login-card">
+    <div class="login-header">
+      <h2>Tix<i>ify</i> Admin Portal</h2>
+      <p class="subtitle">Zugang fÃ¼r Veranstalter & Einlass-Teams</p>
+    </div>
+
+    <!-- Wichtig: errorMessage() mit Klammern aufrufen -->
+    <div *ngIf="errorMessage()" class="error-banner">
+      {{ errorMessage() }}
+    </div>
+
+    <form (ngSubmit)="onLogin()" class="login-form">
+      <div class="form-group">
+        <label for="email">E-Mail-Adresse</label>
+        <input 
+          id="email" 
+          type="email" 
+          [(ngModel)]="email" 
+          name="email" 
+          required 
+          placeholder="admin@tixify.de"
+          [disabled]="isLoading()"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Passwort</label>
+        <input 
+          id="password" 
+          type="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          required 
+          placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+          [disabled]="isLoading()"
+        >
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="isLoading()">
+        <span *ngIf="!isLoading()">Anmelden</span>
+        <span *ngIf="isLoading()">Anmeldung lÃ¤uft...</span>
+      </button>
+
+      <div class="footer-link">
+        <a href="http://localhost:3000">â† ZurÃ¼ck zum Kunden-Ticketshop (MPA)</a>
+      </div>
+    </form>
+  </div>
+</div>
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\login\login.spec.ts ===
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Login } from './login';
+
+describe('Login', () => {
+  let component: Login;
+  let fixture: ComponentFixture<Login>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [Login],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(Login);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\login\login.ts ===
+import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../services/auth';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './login.html',
+  styleUrl: './login.css'
+})
+export class Login {
+  private http = inject(HttpClient);
+  private auth = inject(AuthService);
+  private router = inject(Router);
+
+  email = '';
+  password = '';
+  isLoading = signal(false);
+  errorMessage = signal<string | null>(null);
+
+  onLogin(): void {
+    if (!this.email || !this.password) {
+      this.errorMessage.set('Bitte E-Mail und Passwort eingeben.');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set(null);
+
+    this.http.post<any>('https://tixify-c7a903638236.herokuapp.com/api/auth/login', {
+      email: this.email,
+      password: this.password
+    }).subscribe({
+      next: (res: any) => {
+        this.isLoading.set(false);
+        const token = res.token;
+        const user = res.user || { email: this.email, role: res.role || 'admin', name: res.name || this.email };
+
+        this.auth.setSession(token, user);
+
+        if (this.auth.isAdminOrOrganizer()) {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.errorMessage.set('Zugriff verweigert: Nur Admins oder Veranstalter haben Zugriff auf das Admin-Panel.');
+          this.auth.logout();
+        }
+      },
+      error: (err: HttpErrorResponse) => {
+        this.isLoading.set(false);
+        this.errorMessage.set(err.error?.error || err.error?.message || 'Login fehlgeschlagen. Bitte Zugangsdaten prÃ¼fen.');
+      }
+    });
+  }
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\users\users.css ===
+.users-container {
+  max-width: 1050px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.header-row {
+  margin-bottom: 20px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #0f172a;
+}
+
+.subtitle {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.toolbar {
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-input {
+  width: 340px;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.count-badge {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.table-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table th, .users-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+.users-table th {
+  background: #f8fafc;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.role-pill {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.role-pill[data-role="admin"] {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.role-pill[data-role="organizer"] {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.role-pill[data-role="customer"] {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.role-select {
+  padding: 6px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 13px;
+  background: white;
+}
+
+.btn-delete {
+  background: #fee2e2;
+  color: #991b1b;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.btn-delete:hover {
+  background: #fecaca;
+}
+
+.status-banner {
+  background: #dcfce7;
+  color: #166534;
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\users\users.html ===
+<div class="users-container">
+  <div class="header-row">
+    <div>
+      <h1>Benutzerverwaltung</h1>
+      <p class="subtitle">Rollenrechte (Customer, Organizer, Admin) steuern und Benutzer verwalten</p>
+    </div>
+  </div>
+
+  <div *ngIf="statusMessage()" class="status-banner">
+    {{ statusMessage() }}
+  </div>
+
+  <div class="toolbar">
+    <input 
+      type="text" 
+      [ngModel]="searchQuery()" 
+      (ngModelChange)="searchQuery.set($event)"
+      placeholder="Benutzer suchen nach Name, E-Mail oder Rolle..." 
+      class="search-input"
+    >
+    <span class="count-badge">{{ filteredUsers().length }} Benutzer</span>
+  </div>
+
+  <div class="table-card">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>E-Mail</th>
+          <th>Aktuelle Rolle</th>
+          <th>Rolle anpassen</th>
+          <th style="text-align: right;">Aktion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="isLoading()">
+          <td colspan="6" style="text-align: center; padding: 24px;">Lade Benutzer...</td>
+        </tr>
+        <tr *ngIf="!isLoading() && filteredUsers().length === 0">
+          <td colspan="6" style="text-align: center; padding: 24px;">Keine Benutzer gefunden.</td>
+        </tr>
+        <tr *ngFor="let u of filteredUsers()">
+          <td><b>#{{ u.id }}</b></td>
+          <td><b>{{ u.name }}</b></td>
+          <td>{{ u.email }}</td>
+          <td>
+            <span class="role-pill" [attr.data-role]="u.role">{{ u.role }}</span>
+          </td>
+          <td>
+            <select [ngModel]="u.role" (ngModelChange)="onRoleChange(u, $event)" class="role-select">
+              <option value="customer">customer</option>
+              <option value="organizer">organizer</option>
+              <option value="admin">admin</option>
+            </select>
+          </td>
+          <td style="text-align: right;">
+            <button class="btn-delete" (click)="deleteUser(u)">Löschen</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\pages\users\users.ts ===
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ApiService, UserItem } from '../../services/api';
+
+@Component({
+  selector: 'app-users',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './users.html',
+  styleUrl: './users.css'
+})
+export class Users implements OnInit {
+  private api = inject(ApiService);
+
+  users = signal<UserItem[]>([]);
+  isLoading = signal(true);
+  searchQuery = signal('');
+  statusMessage = signal<string | null>(null);
+
+  filteredUsers = computed(() => {
+    const q = this.searchQuery().trim().toLowerCase();
+    return this.users().filter(u => 
+      !q || 
+      u.name?.toLowerCase().includes(q) || 
+      u.email?.toLowerCase().includes(q) || 
+      u.role?.toLowerCase().includes(q)
+    );
+  });
+
+  ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  loadUsers(): void {
+    this.isLoading.set(true);
+    this.api.getUsers().subscribe({
+      next: (data) => {
+        this.users.set(data);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        this.notify('Fehler beim Laden: ' + (err.error?.error || err.message));
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  onRoleChange(user: UserItem, newRole: string): void {
+    this.api.updateUserRole(user.id, newRole).subscribe({
+      next: () => {
+        user.role = newRole;
+        this.notify(`Rolle für ${user.name} auf "${newRole}" geändert.`);
+      },
+      error: (err) => alert('Fehler beim Ändern der Rolle: ' + (err.error?.error || err.message))
+    });
+  }
+
+  deleteUser(user: UserItem): void {
+    if (confirm(`Möchtest du Benutzer "${user.name}" (${user.email}) wirklich löschen?`)) {
+      this.api.deleteUser(user.id).subscribe({
+        next: () => {
+          this.users.set(this.users().filter(u => u.id !== user.id));
+          this.notify(`Benutzer ${user.name} gelöscht.`);
+        },
+        error: (err) => alert('Löschen fehlgeschlagen: ' + (err.error?.error || err.message))
+      });
+    }
+  }
+
+  private notify(msg: string): void {
+    this.statusMessage.set(msg);
+    setTimeout(() => this.statusMessage.set(null), 3000);
+  }
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\services\api.spec.ts ===
+import { TestBed } from '@angular/core/testing';
+import { Api } from './api';
+
+describe('Api', () => {
+  let service: Api;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(Api);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\services\api.ts ===
+import { Injectable, inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth';
+
+export interface UserItem {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  created_at?: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ApiService {
+  private http = inject(HttpClient);
+  private auth = inject(AuthService);
+  private apiUrl = 'https://tixify-c7a903638236.herokuapp.com';
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = this.auth.getToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
+  getEvents(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/api/events`);
+  }
+
+  getEventsViaGraphQL(): Observable<any> {
+    const query = {
+      query: `
+        query {
+          events {
+            event_id
+            title
+            category
+            location
+            event_date
+            price
+            event_stock
+            logo_url
+            description
+            latitude
+            longitude
+          }
+        }
+      `
+    };
+    return this.http.post<any>(`${this.apiUrl}/graphql`, query, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  updateEventStock(eventId: string, newStock: number): Observable<any> {
+    const mutation = {
+      query: `
+        mutation($id: ID!, $stock: Int!) {
+          updateStock(eventId: $id, stock: $stock) {
+            event_id
+            event_stock
+          }
+        }
+      `,
+      variables: {
+        id: eventId,
+        stock: newStock
+      }
+    };
+    return this.http.post<any>(`${this.apiUrl}/graphql`, mutation, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  createEvent(payload: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/api/events`, payload, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  updateEvent(id: number | string, payload: any): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/api/events/${id}`, payload, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  deleteEvent(id: number | string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/api/events/${id}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  getUsers(): Observable<UserItem[]> {
+    return this.http.get<UserItem[]>(`${this.apiUrl}/api/users`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  updateUserRole(userId: number, role: string): Observable<any> {
+    return this.http.patch<any>(
+      `${this.apiUrl}/api/users/${userId}/role`,
+      { role },
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
+  deleteUser(userId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/api/users/${userId}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  checkInTicket(ticketCode: string): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/api/tickets/check-in`,
+      { ticketCode },
+      { headers: this.getAuthHeaders() }
+    );
+  }
+}
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\services\auth.spec.ts ===
+import { TestBed } from '@angular/core/testing';
+import { Auth } from './auth';
+
+describe('Auth', () => {
+  let service: Auth;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(Auth);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+});
+=== DATEI: C:\Users\r.hartl\OneDrive - BE O365 MS-Cloud\tixify-frontend-spa\src\app\services\auth.ts ===
+import { Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
+
+export interface CurrentUser {
+  id?: number;
+  name?: string;
+  email?: string;
+  role?: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  currentUser = signal<CurrentUser | null>(this.getStoredUser());
+
+  constructor(private router: Router) {}
+
+  private getStoredUser(): CurrentUser | null {
+    const raw = localStorage.getItem('user');
+    if (raw) {
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    const token = this.getToken();
+    if (token) {
+      try {
+        const payloadBase64 = token.split('.')[1];
+        const decoded = JSON.parse(atob(payloadBase64));
+        return {
+          id: decoded.user_id || decoded.id,
+          name: decoded.name || decoded.username || 'Admin',
+          email: decoded.email || '',
+          role: decoded.role || 'admin'
+        };
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  setSession(token: string, user: CurrentUser): void {
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.currentUser.set(user);
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  getRole(): string | null {
+    return this.currentUser()?.role?.toLowerCase() || null;
+  }
+
+  isAdmin(): boolean {
+    return this.getRole() === 'admin';
+  }
+
+  isAdminOrOrganizer(): boolean {
+    const role = this.getRole();
+    return role === 'admin' || role === 'organizer';
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.currentUser.set(null);
+    this.router.navigate(['/login']);
+  }
+}

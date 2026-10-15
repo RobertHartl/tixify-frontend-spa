@@ -112,12 +112,4 @@ export class ApiService {
       headers: this.getAuthHeaders()
     });
   }
-
-  checkInTicket(ticketCode: string): Observable<any> {
-    return this.http.post<any>(
-      `${this.apiUrl}/api/tickets/check-in`,
-      { ticketCode },
-      { headers: this.getAuthHeaders() }
-    );
-  }
 }
